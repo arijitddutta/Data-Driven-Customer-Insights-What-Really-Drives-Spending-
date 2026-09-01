@@ -1,646 +1,389 @@
-# \# 📊 Statistics Mini Project
+# 📊 Customer Insights --- Statistical Analysis in Python
+
+> **A statistics-driven customer analytics project using Python,
+> exploratory data analysis, bivariate analysis, and hypothesis
+> testing.**
+
+This project investigates customer spending behaviour, demographics, and
+interaction recency using a structured statistical workflow. The goal
+was not only to describe the data, but to test whether commonly used
+demographic factors actually explain differences in customer spending.
+
+------------------------------------------------------------------------
 
-# \### Customer Insights – A Statistical Investigation using Python
+## 🎯 Project Objective
+
+The analysis answers four practical questions:
 
-# 
+-   Does **gender** influence average monthly spending?
+-   Does **education level** influence average monthly spending?
+-   Does **age** relate to customer interaction recency?
+-   Does **state** influence average monthly spending?
+
+The project combines **descriptive statistics + visual analytics +
+inferential statistics** to move from observation to evidence-based
+conclusions.
+
+------------------------------------------------------------------------
+
+## 🧰 Tech Stack
+
+  Area                  Tools
+  --------------------- ---------------------
+  Language              Python
+  Data manipulation     Pandas, NumPy
+  Visualization         Matplotlib, Seaborn
+  Statistical testing   SciPy
+  Environment           Jupyter Notebook
+
+**Core techniques:** data validation, datetime conversion, descriptive
+statistics, distribution analysis, boxplots, countplots, scatterplots,
+KDE plots, correlation analysis, crosstabulation, independent t-test,
+one-way ANOVA, and Pearson correlation.
+
+------------------------------------------------------------------------
+
+## 📁 Dataset Snapshot
+
+The notebook works with `US_Customer_Insights_Dataset.csv`.
+
+-   **10,675 records**
+-   **12 variables**
+-   **1,000 unique Customer IDs**
+-   No missing values detected
+-   No duplicate rows detected
+-   `JoinDate` and `TransactionDate` converted to datetime format
+
+### Key variables
+
+`CustomerID` · `State` · `Education` · `Gender` · `Age` · `Married` ·
+`NumPets` · `JoinDate` · `TransactionDate` · `MonthlySpend` ·
+`DaysSinceLastInteraction`
+
+------------------------------------------------------------------------
+
+## 🔎 Analytical Workflow
+
+``` text
+Data Loading
+     ↓
+Data Quality Checks
+     ↓
+Data Cleaning & Pre-processing
+     ↓
+Descriptive Statistics
+     ↓
+Univariate Visual Analysis
+     ↓
+Bivariate Analysis
+     ↓
+Hypothesis Formulation
+     ↓
+Statistical Testing
+     ↓
+Business Insights
+```
+
+------------------------------------------------------------------------
+
+# 📈 Exploratory Analysis
+
+## 1. Age Distribution
+
+The age variable is broadly distributed across the 18--80 range. The
+mean age is **49.47**, while the median is **49.00**, indicating very
+little difference between the two central measures.
+
+```{=html}
+<p align="center">
+```
+`<img src="assets/age_distribution.png" width="850" alt="Age distribution and boxplot">`{=html}
+```{=html}
+</p>
+```
+**Takeaway:** Age does not show obvious extreme outliers in the dataset,
+and the mean/median relationship suggests a relatively balanced
+distribution.
+
+------------------------------------------------------------------------
+
+## 2. Monthly Spend Distribution
+
+Monthly spending is **right-skewed**. Most observations are concentrated
+around the lower spending range, while a smaller group extends into
+substantially higher values.
+
+```{=html}
+<p align="center">
+```
+`<img src="assets/monthly_spend_distribution.png" width="850" alt="Monthly spend distribution and boxplot">`{=html}
+```{=html}
+</p>
+```
+**Key statistics**
+
+  Metric                    Value
+  ---------------------- --------
+  Mean Monthly Spend       331.61
+  Median Monthly Spend     282.11
+  Standard Deviation       225.80
+
+**Takeaway:** The mean being higher than the median, together with the
+long right tail and visible outliers, indicates the presence of
+high-spending customers.
+
+------------------------------------------------------------------------
+
+## 3. Categorical Profile
+
+The project also examined the distribution of **Gender, Education, and
+State**.
+
+```{=html}
+<p align="center">
+```
+`<img src="assets/categorical_distributions.png" width="950" alt="Gender, education and state distributions">`{=html}
+```{=html}
+</p>
+```
+**Highlights**
+
+-   Male is the largest gender group, but the three gender groups are
+    relatively balanced.
+-   Master's degree holders form the largest education group.
+-   Florida has the highest customer count, followed closely by
+    California.
+-   The remaining states are relatively balanced in representation.
+
+------------------------------------------------------------------------
+
+# 🔬 Bivariate Analysis
+
+## 4. Age vs Monthly Spend
+
+The initial scatterplot does not show a clear linear relationship
+between age and monthly spending.
+
+```{=html}
+<p align="center">
+```
+`<img src="assets/age_vs_monthly_spend.png" width="850" alt="Age versus monthly spend scatterplot">`{=html}
+```{=html}
+</p>
+```
+To make the comparison easier to interpret, age was also grouped into
+six bands and compared using boxplots.
+
+```{=html}
+<p align="center">
+```
+`<img src="assets/monthly_spend_by_age_group.png" width="850" alt="Monthly spend by age group">`{=html}
+```{=html}
+</p>
+```
+**Takeaway:** Median spending remains broadly similar across age groups,
+while high-spending outliers appear across multiple age bands.
+
+------------------------------------------------------------------------
+
+## 5. Spending by Education & Marital Status
+
+```{=html}
+<p align="center">
+```
+`<img src="assets/monthly_spend_by_education_marital_status.png" width="900" alt="Monthly spend distributions by education and marital status">`{=html}
+```{=html}
+</p>
+```
+The spending distributions across education groups are highly similar.
+Married and unmarried customers also show strongly overlapping spending
+distributions.
+
+------------------------------------------------------------------------
+
+## 6. Correlation Analysis
+
+The correlation matrix showed values very close to zero among **Age,
+MonthlySpend, and DaysSinceLastInteraction**.
+
+  Variable Pair                               Correlation
+  ----------------------------------------- -------------
+  Age ↔ MonthlySpend                               -0.012
+  Age ↔ DaysSinceLastInteraction                   -0.004
+  MonthlySpend ↔ DaysSinceLastInteraction           0.006
+
+```{=html}
+<p align="center">
+```
+`<img src="assets/correlation_heatmap.png" width="700" alt="Correlation heatmap">`{=html}
+```{=html}
+</p>
+```
+**Takeaway:** These variables show no meaningful linear relationship in
+this dataset.
+
+------------------------------------------------------------------------
+
+# 🧪 Hypothesis Testing
+
+A significance level of **α = 0.05** was used.
+
+  ---------------------------------------------------------------------------
+  Business       Test                 Statistic          p-value Result
+  Question                                                       
+  -------------- ------------- ---------------- ---------------- ------------
+  Do males and   Independent          t = 0.339            0.734 Fail to
+  females spend  t-test                                          reject H₀
+  differently?                                                   
+
+  Does education One-way ANOVA        F = 0.229            0.922 Fail to
+  affect monthly                                                 reject H₀
+  spend?                                                         
+
+  Is age related Pearson             r = -0.004            0.682 Fail to
+  to interaction correlation                                     reject H₀
+  recency?                                                       
+
+  Does state     One-way ANOVA        F = 1.118            0.346 Fail to
+  affect monthly                                                 reject H₀
+  spend?                                                         
+  ---------------------------------------------------------------------------
+
+### Statistical conclusion
+
+None of the four tested relationships produced a p-value below **0.05**.
+
+Therefore, this analysis found **no statistically significant evidence**
+that gender, education, or state explains differences in monthly
+spending, and no statistically significant correlation between age and
+days since last interaction.
+
+> **Important:** "Fail to reject H₀" does not prove that the variables
+> have absolutely no relationship. It means the analysis did not find
+> sufficient statistical evidence of a relationship at the chosen
+> significance level.
+
+------------------------------------------------------------------------
+
+# 💡 Key Business Insights
+
+### 1. Demographics are weak predictors of spending
+
+Gender, education, and state did not show statistically significant
+differences in monthly spending. This suggests that demographic-only
+segmentation may not be sufficient for identifying high-value customers.
+
+### 2. High spenders exist across the customer base
+
+Monthly spending is strongly right-skewed, with a visible group of
+high-spending observations. These customers are not concentrated in one
+obvious age segment.
 
-# This project is a beginner-friendly statistical data analysis project built using \*\*Python\*\* and \*\*Jupyter Notebook\*\*.
+### 3. Age is not a useful standalone engagement signal
 
-# 
+The correlation between age and days since last interaction was
+approximately **-0.004**, with **p = 0.682**. In this dataset, older
+customers are not statistically less active.
 
-# The primary objective of this project is to explore customer data, perform statistical analysis, visualize patterns, and derive meaningful business insights using fundamental concepts of \*\*Statistics\*\* and \*\*Data Analysis\*\*.
+### 4. Customer engagement needs deeper investigation
 
-# 
+`DaysSinceLastInteraction` has a high standard deviation of **398.77
+days**, indicating substantial variation in interaction recency. Since
+the tested demographic variables do not explain this variation, future
+analysis could investigate product, service, support, or
+acquisition-channel factors.
 
-# \---
+------------------------------------------------------------------------
 
-# 
+# 📌 What I Practiced / Demonstrated
 
-# \## 📌 Project Overview
+This project demonstrates practical ability in:
 
-# 
+-   Data loading and validation
+-   Missing-value and duplicate checks
+-   Datetime preprocessing
+-   Descriptive statistics
+-   Distribution and outlier analysis
+-   Categorical analysis
+-   GroupBy and cross-tabulation
+-   Correlation analysis
+-   Data visualization
+-   Statistical hypothesis formulation
+-   Independent t-tests
+-   One-way ANOVA
+-   Pearson correlation
+-   Translating statistical output into business-oriented insights
 
-# In this project I explored a customer dataset by applying statistical techniques including:
+------------------------------------------------------------------------
 
-# 
+# 🗂️ Recommended Repository Structure
 
-# \- Data Cleaning
+``` text
+customer-insights-statistical-analysis/
+│
+├── README.md
+├── Statistics_MiniProject.ipynb
+├── US_Customer_Insights_Dataset.csv
+├── Statistics_MiniProjectBy_ArijitDutta.html
+├── Statistics_Mini_Project.pdf
+│
+└── assets/
+    ├── age_distribution.png
+    ├── monthly_spend_distribution.png
+    ├── categorical_distributions.png
+    ├── age_vs_monthly_spend.png
+    ├── monthly_spend_by_age_group.png
+    ├── monthly_spend_by_education_marital_status.png
+    └── correlation_heatmap.png
+```
 
-# \- Descriptive Statistics
+> **Note:** Keep the dataset and notebook in the repository only if they
+> are permitted to be shared publicly.
 
-# \- Data Visualization
+------------------------------------------------------------------------
 
-# \- Correlation Analysis
+# 🚀 How to Run
 
-# \- Distribution Analysis
+### 1. Clone the repository
 
-# \- Outlier Detection
+``` bash
+git clone <your-repository-url>
+cd customer-insights-statistical-analysis
+```
 
-# \- Business Insight Generation
+### 2. Install dependencies
 
-# 
+``` bash
+pip install pandas numpy matplotlib seaborn scipy jupyter
+```
 
-# The project demonstrates how statistical methods can be applied to real-world customer datasets for exploratory data analysis (EDA).
+### 3. Launch Jupyter
 
-# 
+``` bash
+jupyter notebook
+```
 
-# \---
+Open `Statistics_MiniProject.ipynb` and run the cells.
 
-# 
+------------------------------------------------------------------------
 
-# \## 🚀 Technologies Used
+# 📄 Project Report
 
-# 
+For a quick review without running the notebook:
 
-# \- Python
+-   **HTML:** `Statistics_MiniProjectBy_ArijitDutta.html`
+-   **PDF:** `Statistics_Mini_Project.pdf`
 
-# \- Jupyter Notebook
+The HTML export preserves the notebook workflow and outputs.
 
-# \- Pandas
+------------------------------------------------------------------------
 
-# \- NumPy
+## 👤 Author
 
-# \- Matplotlib
+**Arijit Dutta**
 
-# \- Seaborn
+Data Analyst \| Python \| SQL \| Excel \| Data Visualization
 
-# \- Statistics
+------------------------------------------------------------------------
 
-# 
-
-# \---
-
-# 
-
-# \## 📚 Statistical Concepts Applied
-
-# 
-
-# This project includes practical implementation of:
-
-# 
-
-# \- Mean
-
-# \- Median
-
-# \- Mode
-
-# \- Standard Deviation
-
-# \- Variance
-
-# \- Quartiles
-
-# \- Percentiles
-
-# \- Correlation
-
-# \- Distribution Analysis
-
-# \- Outlier Detection using Boxplots
-
-# \- Histogram Analysis
-
-# \- Exploratory Data Analysis (EDA)
-
-# 
-
-# \---
-
-# 
-
-# \## 📈 Project Workflow
-
-# 
-
-# 1\. Data Loading
-
-# 2\. Data Cleaning
-
-# 3\. Data Preprocessing
-
-# 4\. Descriptive Statistics
-
-# 5\. Data Visualization
-
-# 6\. Correlation Analysis
-
-# 7\. Business Insights
-
-# 8\. Final Conclusion
-
-# 
-
-# \---
-
-# 
-
-# \## 📊 Visualizations
-
-# 
-
-# The notebook contains multiple visualizations including:
-
-# 
-
-# \- Histograms
-
-# \- Boxplots
-
-# \- Scatter Plots
-
-# \- Correlation Heatmaps
-
-# \- Distribution Graphs
-
-# 
-
-# These visualizations help understand customer behavior and identify hidden patterns within the dataset.
-
-# 
-
-# \---
-
-# 
-
-# \## 🎯 Learning Objectives
-
-# 
-
-# This project helped me strengthen my understanding of:
-
-# 
-
-# \- Python for Data Analysis
-
-# \- Statistics in Real-world Data
-
-# \- Exploratory Data Analysis (EDA)
-
-# \- Data Visualization
-
-# \- Working with Jupyter Notebook
-
-# \- Data Cleaning Techniques
-
-# 
-
-# \---
-
-# 
-
-# \## 📂 Project Structure
-
-# 
-
-# ```
-
-# Statistics-MiniProject/
-
-# │
-
-# ├── Statistics\_MiniProject.ipynb
-
-# ├── README.md
-
-# ├── requirements.txt
-
-# ├── data/
-
-# └── images/
-
-# ```
-
-# 
-
-# \---
-
-# 
-
-# \## ⚙️ Installation
-
-# 
-
-# Clone this repository:
-
-# 
-
-# ```bash
-
-# git clone https://github.com/yourusername/Statistics-MiniProject.git
-
-# ```
-
-# 
-
-# Move into the project directory:
-
-# 
-
-# ```bash
-
-# cd Statistics-MiniProject
-
-# ```
-
-# 
-
-# Install dependencies:
-
-# 
-
-# ```bash
-
-# pip install -r requirements.txt
-
-# ```
-
-# 
-
-# Launch Jupyter Notebook:
-
-# 
-
-# ```bash
-
-# jupyter notebook
-
-# ```
-
-# 
-
-# \---
-
-# 
-
-# \## 📌 Future Improvements
-
-# 
-
-# \- Perform Hypothesis Testing
-
-# \- Add Probability Distributions
-
-# \- Perform Regression Analysis
-
-# \- Build an Interactive Dashboard using Plotly
-
-# \- Deploy the project using Streamlit
-
-# 
-
-# \---
-
-# 
-
-# \## 👨‍💻 About Me
-
-# 
-
-# Hi! I'm \*\*Arijit Dutta\*\*.
-
-# 
-
-# I'm currently learning \*\*Data Analytics\*\*, \*\*Python\*\*, \*\*SQL\*\*, \*\*Statistics\*\*, and \*\*Machine Learning\*\*.
-
-# 
-
-# This repository is part of my learning journey where I build projects to improve my practical skills.
-
-# 
-
-# \---
-
-# 
-
-# \## ⭐ If you found this project useful
-
-# 
-
-# \# 📊 Statistics Mini Project
-
-# \### Customer Insights – A Statistical Investigation using Python
-
-# 
-
-# This project is a beginner-friendly statistical data analysis project built using \*\*Python\*\* and \*\*Jupyter Notebook\*\*.
-
-# 
-
-# The primary objective of this project is to explore customer data, perform statistical analysis, visualize patterns, and derive meaningful business insights using fundamental concepts of \*\*Statistics\*\* and \*\*Data Analysis\*\*.
-
-# 
-
-# \---
-
-# 
-
-# \## 📌 Project Overview
-
-# 
-
-# In this project I explored a customer dataset by applying statistical techniques including:
-
-# 
-
-# \- Data Cleaning
-
-# \- Descriptive Statistics
-
-# \- Data Visualization
-
-# \- Correlation Analysis
-
-# \- Distribution Analysis
-
-# \- Outlier Detection
-
-# \- Business Insight Generation
-
-# 
-
-# The project demonstrates how statistical methods can be applied to real-world customer datasets for exploratory data analysis (EDA).
-
-# 
-
-# \---
-
-# 
-
-# \## 🚀 Technologies Used
-
-# 
-
-# \- Python
-
-# \- Jupyter Notebook
-
-# \- Pandas
-
-# \- NumPy
-
-# \- Matplotlib
-
-# \- Seaborn
-
-# \- Statistics
-
-# 
-
-# \---
-
-# 
-
-# \## 📚 Statistical Concepts Applied
-
-# 
-
-# This project includes practical implementation of:
-
-# 
-
-# \- Mean
-
-# \- Median
-
-# \- Mode
-
-# \- Standard Deviation
-
-# \- Variance
-
-# \- Quartiles
-
-# \- Percentiles
-
-# \- Correlation
-
-# \- Distribution Analysis
-
-# \- Outlier Detection using Boxplots
-
-# \- Histogram Analysis
-
-# \- Exploratory Data Analysis (EDA)
-
-# 
-
-# \---
-
-# 
-
-# \## 📈 Project Workflow
-
-# 
-
-# 1\. Data Loading
-
-# 2\. Data Cleaning
-
-# 3\. Data Preprocessing
-
-# 4\. Descriptive Statistics
-
-# 5\. Data Visualization
-
-# 6\. Correlation Analysis
-
-# 7\. Business Insights
-
-# 8\. Final Conclusion
-
-# 
-
-# \---
-
-# 
-
-# \## 📊 Visualizations
-
-# 
-
-# The notebook contains multiple visualizations including:
-
-# 
-
-# \- Histograms
-
-# \- Boxplots
-
-# \- Scatter Plots
-
-# \- Correlation Heatmaps
-
-# \- Distribution Graphs
-
-# 
-
-# These visualizations help understand customer behavior and identify hidden patterns within the dataset.
-
-# 
-
-# \---
-
-# 
-
-# \## 🎯 Learning Objectives
-
-# 
-
-# This project helped me strengthen my understanding of:
-
-# 
-
-# \- Python for Data Analysis
-
-# \- Statistics in Real-world Data
-
-# \- Exploratory Data Analysis (EDA)
-
-# \- Data Visualization
-
-# \- Working with Jupyter Notebook
-
-# \- Data Cleaning Techniques
-
-# 
-
-# \---
-
-# 
-
-# \## 📂 Project Structure
-
-# 
-
-# ```
-
-# Statistics-MiniProject/
-
-# │
-
-# ├── Statistics\_MiniProject.ipynb
-
-# ├── README.md
-
-# ├── requirements.txt
-
-# ├── data/
-
-# └── images/
-
-# ```
-
-# 
-
-# \---
-
-# 
-
-# \## ⚙️ Installation
-
-# 
-
-# Clone this repository:
-
-# 
-
-# ```bash
-
-# git clone https://github.com/yourusername/Statistics-MiniProject.git
-
-# ```
-
-# 
-
-# Move into the project directory:
-
-# 
-
-# ```bash
-
-# cd Statistics-MiniProject
-
-# ```
-
-# 
-
-# Install dependencies:
-
-# 
-
-# ```bash
-
-# pip install -r requirements.txt
-
-# ```
-
-# 
-
-# Launch Jupyter Notebook:
-
-# 
-
-# ```bash
-
-# jupyter notebook
-
-# ```
-
-# 
-
-# \---
-
-# 
-
-# \## 📌 Future Improvements
-
-# 
-
-# \- Perform Hypothesis Testing
-
-# \- Add Probability Distributions
-
-# \- Perform Regression Analysis
-
-# \- Build an Interactive Dashboard using Plotly
-
-# \- Deploy the project using Streamlit
-
-# 
-
-# \---
-
-# 
-
-# \## 👨‍💻 About Me
-
-# 
-
-# Hi! I'm \*\*Arijit Dutta\*\*.
-
-# 
-
-# I'm currently learning \*\*Data Analytics\*\*, \*\*Python\*\*, \*\*SQL\*\*, \*\*Statistics\*\*, and \*\*Machine Learning\*\*.
-
-# 
-
-# This repository is part of my learning journey where I build projects to improve my practical skills.
-
-# 
-
-# \---
-
-# 
-
-# \## ⭐ If you found this project useful
-
-# 
-
-# Feel free to star ⭐ this repository.
-
-# 
-
-# Feedback and suggestions are always welcome!
-
+### ⭐ If you found this analysis useful, consider starring the repository.
