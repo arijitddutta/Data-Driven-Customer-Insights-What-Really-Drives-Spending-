@@ -94,11 +94,8 @@ The age variable is broadly distributed across the 18--80 range. The
 mean age is **49.47**, while the median is **49.00**, indicating very
 little difference between the two central measures.
 
-```{=html}
 <p align="center">
-```
-`<img src="assets/age_distribution.png" width="850" alt="Age distribution and boxplot">`{=html}
-```{=html}
+<img src="assets/age_distribution.png" width="850" alt="Age distribution and boxplot">
 </p>
 ```
 **Takeaway:** Age does not show obvious extreme outliers in the dataset,
@@ -113,11 +110,8 @@ Monthly spending is **right-skewed**. Most observations are concentrated
 around the lower spending range, while a smaller group extends into
 substantially higher values.
 
-```{=html}
 <p align="center">
-```
-`<img src="assets/monthly_spend_distribution.png" width="850" alt="Monthly spend distribution and boxplot">`{=html}
-```{=html}
+<img src="assets/monthly_spend_distribution.png" width="850" alt="Monthly spend distribution and boxplot">
 </p>
 ```
 **Key statistics**
@@ -139,11 +133,8 @@ high-spending customers.
 The project also examined the distribution of **Gender, Education, and
 State**.
 
-```{=html}
 <p align="center">
-```
-`<img src="assets/categorical_distributions.png" width="950" alt="Gender, education and state distributions">`{=html}
-```{=html}
+<img src="assets/categorical_distributions.png" width="950" alt="Gender, education and state distributions">
 </p>
 ```
 **Highlights**
@@ -164,21 +155,15 @@ State**.
 The initial scatterplot does not show a clear linear relationship
 between age and monthly spending.
 
-```{=html}
 <p align="center">
-```
-`<img src="assets/age_vs_monthly_spend.png" width="850" alt="Age versus monthly spend scatterplot">`{=html}
-```{=html}
+<img src="assets/age_vs_monthly_spend.png" width="850" alt="Age versus monthly spend scatterplot">
 </p>
 ```
 To make the comparison easier to interpret, age was also grouped into
 six bands and compared using boxplots.
 
-```{=html}
 <p align="center">
-```
-`<img src="assets/monthly_spend_by_age_group.png" width="850" alt="Monthly spend by age group">`{=html}
-```{=html}
+<img src="assets/monthly_spend_by_age_group.png" width="850" alt="Monthly spend by age group">
 </p>
 ```
 **Takeaway:** Median spending remains broadly similar across age groups,
@@ -188,11 +173,8 @@ while high-spending outliers appear across multiple age bands.
 
 ## 5. Spending by Education & Marital Status
 
-```{=html}
 <p align="center">
-```
-`<img src="assets/monthly_spend_by_education_marital_status.png" width="900" alt="Monthly spend distributions by education and marital status">`{=html}
-```{=html}
+<img src="assets/monthly_spend_by_education_marital_status.png" width="900" alt="Monthly spend distributions by education and marital status">
 </p>
 ```
 The spending distributions across education groups are highly similar.
@@ -212,11 +194,8 @@ MonthlySpend, and DaysSinceLastInteraction**.
   Age ↔ DaysSinceLastInteraction                   -0.004
   MonthlySpend ↔ DaysSinceLastInteraction           0.006
 
-```{=html}
 <p align="center">
-```
-`<img src="assets/correlation_heatmap.png" width="700" alt="Correlation heatmap">`{=html}
-```{=html}
+<img src="assets/correlation_heatmap.png" width="700" alt="Correlation heatmap">
 </p>
 ```
 **Takeaway:** These variables show no meaningful linear relationship in
